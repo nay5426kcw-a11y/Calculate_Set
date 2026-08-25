@@ -9,44 +9,81 @@ root.resizable(False,False)
 set_display = 1
 result = ""
 num_input = StringVar(value="n(A) = ")
-num_na,num_nb,num_nc,num_nab,num_nac,num_nbc,num_nabc,num_naUbUc = "", "", "", "", "", "", "", ""
+num_na = StringVar(value="")
+num_nb = StringVar(value="")
+num_nc = StringVar(value="")
+num_nab = StringVar(value="")
+num_nac = StringVar(value="")
+num_nbc = StringVar(value="")
+num_nabc = StringVar(value="")
+num_aUbUc = StringVar(value="")
 
 def check_nset():
     global set_display
     match set_display:
         case 1:
-            num_na = "n(A) = "
-            num_input.set(num_na)
+            num_input.set("n(A) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 2:
-            num_nb = "n(B) = "
-            num_input.set(num_nb)
+            num_input.set("n(B) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 3:
-            num_nc = "n(C) = "
-            num_input.set(num_nc)
+            num_input.set("n(C) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 4:
-            num_nab = "n(A∩B) = "
-            num_input.set(num_nab)
+            num_input.set("n(A∩B) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 5:
-            num_nac = "n(A∩C) = "
-            num_input.set(num_nac)
+            num_input.set("n(A∩C) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 6:
-            num_nbc = "n(B∩C) = "
-            num_input.set(num_nbc)
+            num_input.set("n(B∩C) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 7:
-            num_nabc = "n(A∩B∩C) = "
-            num_input.set(num_nabc)
+            num_input.set("n(A∩B∩C) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
         case 8:
-            num_naUbUc = "n(AUBUC) = "
-            num_input.set(num_naUbUc)
-            
+            num_input.set("n(AUBUC) = ")
+            num_input.set(num_input.get())
+            return num_input.get()
 
+def get_num():
+    global set_display
+    if num_input.get().startswith("n"):
+        return
+    match set_display:
+        case 1:
+            num_na.set(num_input.get())
+        case 2:
+            num_nb.set(num_input.get())
+        case 3:
+            num_nc.set(num_input.get())
+        case 4:
+            num_nab.set(num_input.get())
+        case 5:
+            num_nac.set(num_input.get())
+        case 6:
+            num_nbc.set(num_input.get())
+        case 7:
+            num_nabc.set(num_input.get())
+        case 8:
+            num_aUbUc.set(num_input.get())
 
 def show_display(operater):
     global set_display
     if operater == ">" and 8 > set_display >= 1:
+        get_num()
         set_display += 1
         check_nset()
     elif operater == "<" and 8 >= set_display > 1:
+        get_num()
         set_display -= 1
         check_nset()
     else:
@@ -59,9 +96,8 @@ def show_num(num):
 
 def clear():
     global result
-    result = check_nset()#น่าจะต้องทำเครียทีละอันเลย
+    result = ""#น่าจะต้องทำเครียทีละอันเลย
     num_input.set(result)
-    result = ""
 
 # bg
 bg_area = Frame(
@@ -159,10 +195,10 @@ lb_nabc = create_lb("n(A∩B∩C)",3,3)
 lb_naUbUc = create_lb("n(AUBUC)",4,3)
 
 #colum5
-nac = create_display(num_na,1,5)
-nbc = create_display(num_nb,2,5)
-nabc = create_display(num_nc,3,5)
-naUbUc = create_display(num_nab,4,5)
+nac = create_display(num_nac,1,5)
+nbc = create_display(num_nbc,2,5)
+nabc = create_display(num_nabc,3,5)
+naUbUc = create_display(num_aUbUc,4,5)
 
 #row5
 btn7 = create_btn("7",5,1,lambda: show_num(7))
