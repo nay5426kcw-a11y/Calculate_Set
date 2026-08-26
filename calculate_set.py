@@ -23,35 +23,30 @@ def check_nset():
     match set_display:
         case 1:
             num_input.set("n(A) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 2:
             num_input.set("n(B) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 3:
             num_input.set("n(C) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 4:
             num_input.set("n(A∩B) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 5:
             num_input.set("n(A∩C) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 6:
             num_input.set("n(B∩C) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 7:
             num_input.set("n(A∩B∩C) = ")
-            num_input.set(num_input.get())
             return num_input.get()
         case 8:
             num_input.set("n(AUBUC) = ")
-            num_input.set(num_input.get())
+            return num_input.get()
+        case 9:
+            num_input.set("Enter '=' to calculate")
             return num_input.get()
 
 def get_num():
@@ -78,11 +73,11 @@ def get_num():
 
 def show_display(operater):
     global set_display
-    if operater == ">" and 8 > set_display >= 1:
+    if operater == ">" and 9 > set_display >= 1:
         get_num()
         set_display += 1
         check_nset()
-    elif operater == "<" and 8 >= set_display > 1:
+    elif operater == "<" and 9 >= set_display > 1:
         get_num()
         set_display -= 1
         check_nset()
@@ -91,6 +86,8 @@ def show_display(operater):
 
 def show_num(num):
     global result
+    if num_input.get().startswith("n") or num_input.get().startswith("Enter"):
+        result = ""
     result += str(num)
     num_input.set(result)
 
