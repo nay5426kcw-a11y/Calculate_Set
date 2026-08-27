@@ -16,7 +16,7 @@ num_nab = StringVar(value="")
 num_nac = StringVar(value="")
 num_nbc = StringVar(value="")
 num_nabc = StringVar(value="")
-num_aUbUc = StringVar(value="")
+num_naUbUc = StringVar(value="")
 
 def check_nset():
     global set_display
@@ -51,25 +51,42 @@ def check_nset():
 
 def get_num():
     global set_display
+    global na,nb,nc,nab,nac,nbc,nabc,naUbUc
     if num_input.get().startswith("n"):
         return
     match set_display:
         case 1:
             num_na.set(num_input.get())
+            if num_input.get() != "x":
+                na = int(num_input.get())
         case 2:
             num_nb.set(num_input.get())
+            if num_input.get() != "x":
+                nb = int(num_input.get())
         case 3:
             num_nc.set(num_input.get())
+            if num_input.get() != "x":
+                nc = int(num_input.get())
         case 4:
             num_nab.set(num_input.get())
+            if num_input.get() != "x":
+                nab = int(num_input.get())
         case 5:
             num_nac.set(num_input.get())
+            if num_input.get() != "x":
+                nac = int(num_input.get())
         case 6:
             num_nbc.set(num_input.get())
+            if num_input.get() != "x":
+                nbc = int(num_input.get())
         case 7:
             num_nabc.set(num_input.get())
+            if num_input.get() != "x":
+                nabc = int(num_input.get())
         case 8:
-            num_aUbUc.set(num_input.get())
+            num_naUbUc.set(num_input.get())
+            if num_input.get() != "x":
+                naUbUc = int(num_input.get())
 
 def show_display(operater):
     global set_display
@@ -95,6 +112,14 @@ def clear():
     global result
     result = ""#น่าจะต้องทำเครียทีละอันเลย
     num_input.set(result)
+
+def calculate():
+    global result
+    result = ""
+    if num_naUbUc.get() == "x":
+        result = (na+nb+nc-nab-nac-nbc+nabc)
+    num_input.set(result)
+    
 
 # bg
 bg_area = Frame(
@@ -195,7 +220,7 @@ lb_naUbUc = create_lb("n(AUBUC)",4,3)
 nac = create_display(num_nac,1,5)
 nbc = create_display(num_nbc,2,5)
 nabc = create_display(num_nabc,3,5)
-naUbUc = create_display(num_aUbUc,4,5)
+naUbUc = create_display(num_naUbUc,4,5)
 
 #row5
 btn7 = create_btn("7",5,1,lambda: show_num(7))
@@ -216,7 +241,7 @@ btn3 = create_btn("3",7,3,lambda: show_num(3))
 btn_next = create_btn(">",7,4,lambda: show_display(">"))
 
 #row8
-btn_equal = create_btn("=",8,1,lambda: show_num("="),3)
+btn_equal = create_btn("=",8,1,lambda: calculate(),3)
 btn_back = create_btn("<",8,4,lambda: show_display("<"))
 
 root.mainloop()
