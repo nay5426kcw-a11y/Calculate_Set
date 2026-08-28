@@ -118,7 +118,22 @@ def calculate():
     result = ""
     if num_naUbUc.get() == "x":
         result = (na+nb+nc-nab-nac-nbc+nabc)
+    elif num_nabc.get() == "x":
+        result = (na-nb-nc+nab+nac+nbc+naUbUc)
+    elif num_na.get() == "x":
+        result = (naUbUc-nb-nc+nab+nac+nbc-nabc)
+    elif num_nb.get() == "x":
+        result = (na-naUbUc-nc+nab+nac+nbc-nabc)
+    elif num_nc.get() == "x":
+        result = (na-nb-naUbUc+nab+nac+nbc-nabc)
+    elif num_nab.get() == "x":
+        result = (na+nb+nc-naUbUc-nac-nbc+nabc)
+    elif num_nac.get() == "x":
+        result = (na+nb+nc-nab-naUbUc-nbc+nabc)
+    elif num_nbc.get() == "x":
+        result = (na+nb+nc-nab-nac-naUbUc+nabc)
     num_input.set(result)
+    
     
 
 # bg
