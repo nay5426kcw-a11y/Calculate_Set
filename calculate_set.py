@@ -119,13 +119,13 @@ def calculate():
     if num_naUbUc.get() == "x":
         result = (na+nb+nc-nab-nac-nbc+nabc)
     elif num_nabc.get() == "x":
-        result = (na-nb-nc+nab+nac+nbc+naUbUc)
+        result = (naUbUc-na-nb-nc+nab+nac+nbc)
     elif num_na.get() == "x":
         result = (naUbUc-nb-nc+nab+nac+nbc-nabc)
     elif num_nb.get() == "x":
-        result = (na-naUbUc-nc+nab+nac+nbc-nabc)
+        result = (naUbUc-na-nc+nab+nac+nbc-nabc)
     elif num_nc.get() == "x":
-        result = (na-nb-naUbUc+nab+nac+nbc-nabc)
+        result = (naUbUc-nb-na+nab+nac+nbc-nabc)
     elif num_nab.get() == "x":
         result = (na+nb+nc-naUbUc-nac-nbc+nabc)
     elif num_nac.get() == "x":
@@ -188,8 +188,7 @@ def create_lb(text, row, column):
         sticky="nsew"
     )
     
-
-def create_btn(text, row, column, command, columnspan=1, color="red"):
+def create_btn(text, row, column, command, columnspan=1, rowspan=1, color="red", ):
     btn = Button(
         root,
         text=text,
@@ -202,6 +201,7 @@ def create_btn(text, row, column, command, columnspan=1, color="red"):
         row=row,
         column=column,
         columnspan=columnspan,
+        rowspan=rowspan,
         padx=5,
         pady=5,
         sticky="nsew"
@@ -236,6 +236,7 @@ nac = create_display(num_nac,1,5)
 nbc = create_display(num_nbc,2,5)
 nabc = create_display(num_nabc,3,5)
 naUbUc = create_display(num_naUbUc,4,5)
+btn_equal = create_btn("=",7,4,lambda: calculate(),1,2)
 
 #row5
 btn7 = create_btn("7",5,1,lambda: show_num(7))
@@ -253,10 +254,11 @@ btn_x = create_btn("x",6,4,lambda: show_num("x"))
 btn1 = create_btn("1",7,1,lambda: show_num(1))
 btn2 = create_btn("2",7,2,lambda: show_num(2))
 btn3 = create_btn("3",7,3,lambda: show_num(3))
-btn_next = create_btn(">",7,4,lambda: show_display(">"))
+
 
 #row8
-btn_equal = create_btn("=",8,1,lambda: calculate(),3)
-btn_back = create_btn("<",8,4,lambda: show_display("<"))
+btn_back = create_btn("<",8,1,lambda: show_display("<"))
+btn_0 = create_btn("0",8,2,lambda: show_num(0))
+btn_next = create_btn(">",8,3,lambda: show_display(">"))
 
 root.mainloop()
