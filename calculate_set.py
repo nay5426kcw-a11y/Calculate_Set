@@ -18,32 +18,56 @@ num_nbc = StringVar(value="")
 num_nabc = StringVar(value="")
 num_naUbUc = StringVar(value="")
 
-def check_nset():
+def show_display():
     global set_display
     match set_display:
         case 1:
-            num_input.set("n(A) = ")
+            if num_na == "":
+                num_input.set("n(A) = ")
+            else:
+                num_input.set(f"n(A) = {num_na.get()}")
             return num_input.get()
         case 2:
-            num_input.set("n(B) = ")
+            if num_nb == "":
+                num_input.set("n(B) = ")
+            else:
+                num_input.set(f"n(B) = {num_nb.get()}")
             return num_input.get()
         case 3:
-            num_input.set("n(C) = ")
+            if num_nc == "":
+                num_input.set("n(C) = ")
+            else:
+                num_input.set(f"n(C) = {num_nc.get()}")
             return num_input.get()
         case 4:
-            num_input.set("n(A∩B) = ")
+            if num_nab == "":
+                num_input.set("n(A∩B) = ")
+            else:
+                num_input.set(f"n(A∩B) = {num_nab.get()}")
             return num_input.get()
         case 5:
-            num_input.set("n(A∩C) = ")
+            if num_nac == "":
+                num_input.set("n(A∩C) = ")
+            else:
+                num_input.set(f"n(A∩C) = {num_nac.get()}")
             return num_input.get()
         case 6:
-            num_input.set("n(B∩C) = ")
+            if num_nbc == "":
+                num_input.set("n(B∩C) = ")
+            else:
+                num_input.set(f"n(B∩C) = {num_nbc.get()}")
             return num_input.get()
         case 7:
-            num_input.set("n(A∩B∩C) = ")
+            if num_nabc == "":
+                num_input.set("n(A∩B∩C) = ")
+            else:
+                num_input.set(f"n(A∩B∩C) = {num_nabc.get()}")
             return num_input.get()
         case 8:
-            num_input.set("n(AUBUC) = ")
+            if num_naUbUc == "":
+                num_input.set("n(AUBUC) = ")
+            else:
+                num_input.set(f"n(AUBUC) = {num_naUbUc.get()}")
             return num_input.get()
         case 9:
             num_input.set("Enter '=' to calculate")
@@ -88,30 +112,74 @@ def get_num():
             if num_input.get() != "x":
                 naUbUc = int(num_input.get())
 
-def show_display(operater):
+def opt_display(operater):
     global set_display
-    if operater == ">" and 9 > set_display >= 1:
-        get_num()
-        set_display += 1
-        check_nset()
-    elif operater == "<" and 9 >= set_display > 1:
-        get_num()
-        set_display -= 1
-        check_nset()
+    if num_input.get().startswith("Error"):
+        return
     else:
-        set_display == set_display
+        if operater == ">" and 9 > set_display >= 1:
+            get_num()
+            set_display += 1
+            show_display()
+        elif operater == "<" and 9 >= set_display > 1:
+            get_num()
+            set_display -= 1
+            show_display()
+        else:
+            set_display == set_display
 
 def show_num(num):
     global result
-    if num_input.get().startswith("n") or num_input.get().startswith("Enter"):
-        result = ""
+    if num_input.get().startswith("Error"):
+        return
+    else:
+        if num_input.get().startswith("n") or num_input.get().startswith("E"):
+            result = ""
+        elif num == "x" and len(num_input.get()) != "":
+            result = "Error"
+            num = ""
+        elif num != "x" and num_input.get().startswith("x"):
+            result = "Error"
+            num = ""
     result += str(num)
     num_input.set(result)
 
 def clear():
-    global result
-    result = ""#น่าจะต้องทำเครียทีละอันเลย
-    num_input.set(result)
+    global set_display
+    global na,nb,nc,nab,nac,nbc,nabc,naUbUc
+    match set_display:
+        case 1:
+            if num_na != "":
+                num_na.set("")
+                show_display()
+        case 2:
+            if num_nb != "":
+                num_nb.set("")
+                show_display()
+        case 3:
+            if num_nc != "":
+                num_nc.set("")
+                show_display()
+        case 4:
+            if num_nab != "":
+                num_nab.set("")
+                show_display()
+        case 5:
+            if num_nac != "":
+                num_nac.set("")
+                show_display()
+        case 6:
+            if num_nbc != "":
+                num_nbc.set("")
+                show_display()
+        case 7:
+            if num_nabc != "":
+                num_nabc.set("")
+                show_display()
+        case 8:
+            if num_naUbUc != "":
+                num_naUbUc.set("")
+                show_display()
 
 def calculate():
     global result
@@ -132,6 +200,8 @@ def calculate():
         result = (na+nb+nc-nab-naUbUc-nbc+nabc)
     elif num_nbc.get() == "x":
         result = (na+nb+nc-nab-nac-naUbUc+nabc)
+    else:
+        result = ("Error")
     num_input.set(result)
     
     
@@ -257,8 +327,8 @@ btn3 = create_btn("3",7,3,lambda: show_num(3))
 
 
 #row8
-btn_back = create_btn("<",8,1,lambda: show_display("<"))
+btn_back = create_btn("<",8,1,lambda: opt_display("<"))
 btn_0 = create_btn("0",8,2,lambda: show_num(0))
-btn_next = create_btn(">",8,3,lambda: show_display(">"))
+btn_next = create_btn(">",8,3,lambda: opt_display(">"))
 
 root.mainloop()
