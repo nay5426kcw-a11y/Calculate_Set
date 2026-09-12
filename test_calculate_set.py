@@ -118,14 +118,11 @@ def show_num(num):
 def clear():
     global set_display, num_input
     
-    if num_input.get().startswith("Error"):
-        num_input.set("")
-        show_display()
-        return
-    
-    if set_display in num_vars and num_vars[set_display].get() != "":
+    if set_display in num_vars:
         num_vars[set_display].set("")
-        show_display()
+    
+    num_input.set("")
+    show_display()
 
 
 def calculate():
@@ -289,6 +286,21 @@ def test_error_handling():
     print(f"  {status}: Clear error → {num_input.get()}")
 
 
+def test_clear_in_progress_entry():
+    """ทดสอบ clear เมื่อผู้ใช้พิมพ์เลขยังไม่กด next/previous"""
+    global num_input, num_vars, set_display
+    print("\n📋 TEST: clear() - in progress entry")
+
+    reset_state()
+    set_display = 1
+    num_input.set("123")
+
+    clear()
+
+    status = "✅ PASS" if num_input.get() == "n(A) = " else "❌ FAIL"
+    print(f"  {status}: Clear in-progress entry → {num_input.get()}, expected = n(A) = ")
+
+
 def test_no_unknown():
     """ทดสอบ calculate เมื่อไม่มี unknown"""
     global num_vars, num_input
@@ -412,6 +424,7 @@ if __name__ == "__main__":
     test_calculate_n_aubuc()
     test_calculate_n_a()
     test_error_handling()
+    test_clear_in_progress_entry()
     test_no_unknown()
     test_show_num_sequence()
     test_mixed_with_x()

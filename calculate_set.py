@@ -34,7 +34,7 @@ def show_display():
         6: "n(B∩C)",
         7: "n(A∩B∩C)",
         8: "n(AUBUC)",
-        9: "Enter '=' to calculate"
+        9: "กด '=' เพื่อคำนวณ"
     }
     
     if set_display == 9:
@@ -108,15 +108,12 @@ def show_num(num):
 
 def clear():
     global set_display
-    
-    if num_input.get().startswith("Error"):
-        num_input.set("")
-        show_display()
-        return
-    
-    if set_display in num_vars and num_vars[set_display].get() != "":
+
+    if set_display in num_vars:
         num_vars[set_display].set("")
-        show_display()
+
+    num_input.set("")
+    show_display()
 
 def calculate():
     global result
